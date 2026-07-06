@@ -1,25 +1,31 @@
-const express = require('express');
-const cors = require('cors');
 const axios = require('axios');
-require('dotenv').config();
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+module.exports = async (req, res) => {
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
-const AMOCRM_DOMAIN = `https://${process.env.AMOCRM_SUBDOMAIN}.amocrm.ru`;
-const TOKEN = process.env.AMOCRM_LONG_LIVED_TOKEN;
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
 
-app.post('/api/lead', async (req, res) => {
+    if (req.method !== 'POST') {
+        res.status(405).json({ error: 'Method Not Allowed' });
+        return;
+    }
+
     try {
-        const { name, phone, email, message, region, product, price } = req.body;
+        const AMOCRM_DOMAIN = `https://${process.env.AMOCRM_SUBDOMAIN}.amocrm.ru`;
+        const TOKEN = process.env.AMOCRM_LONG_LIVED_TOKEN;
+
+        const { name, phone, region, product, price } = req.body;
 
         const customFields = [];
         if (phone) {
             customFields.push({ field_code: 'PHONE', values: [{ value: phone }] });
-        }
-        if (email) {
-            customFields.push({ field_code: 'EMAIL', values: [{ value: email }] });
         }
 
         const complexPayload = [
@@ -45,14 +51,11 @@ app.post('/api/lead', async (req, res) => {
             }
         });
 
-        // Get the created lead ID
         const createdLeadId = leadResponse.data[0]?.id;
 
-        // 2. Add Note if message or region exists
-        if (createdLeadId && (message || region)) {
-            let noteText = '';
-            if (region) noteText += `Hudud: ${region}\n`;
-            if (message) noteText += `Xabar: ${message}\n`;
+        // 2. Add Note if region exists
+        if (createdLeadId && region) {
+            let noteText = `Hudud: ${region}\n`;
 
             const notePayload = [
                 {
@@ -71,17 +74,10 @@ app.post('/api/lead', async (req, res) => {
             });
         }
 
-        res.json({ success: true, message: 'Lead created successfully' });
+        res.status(200).json({ success: true, message: 'Lead created successfully' });
 
     } catch (error) {
         console.error('amoCRM Error:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
         res.status(500).json({ success: false, error: 'Failed to create lead' });
     }
-});
-
-const PORT = process.env.PORT || 3000;
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
-
-module.exports = app;
+};
