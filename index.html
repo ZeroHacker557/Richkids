@@ -816,7 +816,7 @@
             margin-bottom: 6px
         }
 
-        .field input {
+        .field input, .field select {
             width: 100%;
             border: 2px solid var(--line);
             border-radius: 14px;
@@ -829,14 +829,23 @@
             box-shadow: inset 0 2px 4px rgba(18,58,86,.03);
         }
 
-        .field input:focus {
+        .field select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 8L13 1" stroke="%235B7488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
+        }
+
+        .field input:focus, .field select:focus {
             outline: none;
             border-color: var(--sky);
             background: #fff;
             box-shadow: 0 0 0 4px rgba(21, 155, 238, .15), inset 0 2px 4px rgba(18,58,86,.02);
         }
 
-        .field input.err {
+        .field input.err, .field select.err {
             border-color: #E24A3B;
             background: #FFF3F1
         }
@@ -1036,17 +1045,9 @@
         <!-- ===== HERO / VIDEO 1 ===== -->
         <header class="hero">
             <span class="badge-top">5 in 1 · bog' sepgichi</span>
-            <div class="videowrap" data-video="images/review1.mp4" data-autoplay="1">
-                <span class="vlabel">Video</span>
-                <video poster="images/image1.jpg" playsinline muted loop preload="none">
-                    <source src="images/review1.mp4" type="video/mp4">
-                </video>
-                <button class="playbtn" aria-label="Videoni ko'rish"><i></i></button>
+            <div class="videowrap">
+                <img src="images/image2.png" alt="Hero Image" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 <div class="hero-overlay">
-                    <div class="eyebrow">Richkidss</div>
-                    <h1>Bolalar zavqi <span class="y">hovlingizdayoq</span></h1>
-                    <p>Aylanadi, sepadi, oqim shaklini o'zgartiradi. To'plamda 6 ta quvnoq hayvoncha — bolalar soatlab
-                        o'ynaydi.</p>
                     <a href="#order" class="cta pulse"><span class="drop">💧</span> Hozir buyurtma berish</a>
                 </div>
             </div>
@@ -1056,21 +1057,8 @@
         </header>
 
         <!-- ===== TRUST BAR ===== -->
-        <div class="trust-bar">
-            <div class="trust-item reveal">
-                <div class="trust-num">2 400+</div>
-                <div class="trust-lbl">Buyurtmalar</div>
-            </div>
-            <div class="trust-sep"></div>
-            <div class="trust-item reveal">
-                <div class="trust-num">⭐ 4.9</div>
-                <div class="trust-lbl">Reyting</div>
-            </div>
-            <div class="trust-sep"></div>
-            <div class="trust-item reveal">
-                <div class="trust-num">🚚 1-3</div>
-                <div class="trust-lbl">Kun yetkazish</div>
-            </div>
+        <div class="trust-bar" style="justify-content: center; text-align: center;">
+            <h2 style="font-family: 'Baloo 2'; font-size: 24px; color: var(--sky-deep); margin: 0;">Suvda uchar o'rdakcha</h2>
         </div>
 
         <!-- ===== WHY PARENTS BUY ===== -->
@@ -1098,20 +1086,7 @@
             </div>
         </section>
 
-        <!-- ===== VIDEO 2 ===== -->
-        <section class="vblock">
-            <div class="sec-head reveal">
-                <span class="kick">Amalda</span>
-                <h2>Bolalar qanday o'ynaydi</h2>
-            </div>
-            <div class="videowrap reveal" data-video="images/review1.mp4">
-                <span class="vlabel">15 soniya</span>
-                <video poster="images/image2.jpg" playsinline preload="none">
-                    <source src="images/review1.mp4" type="video/mp4">
-                </video>
-                <button class="playbtn" aria-label="Videoni ko'rish"><i></i></button>
-            </div>
-        </section>
+
 
         <!-- ===== WHAT'S INCLUDED ===== -->
         <section class="included">
@@ -1122,19 +1097,19 @@
             <div class="inc-grid">
                 <div class="inc-card reveal">
                     <div class="ph"><img src="images/image3.jpg" alt="3 xil oqim rejimi" loading="lazy"></div>
-                    <div class="cap">3 xil oqim<small>yurak · yelpig'ich · girdob</small></div>
+                    <div class="cap" style="font-size: 24px;">1</div>
                 </div>
                 <div class="inc-card reveal">
                     <div class="ph"><img src="images/image4.jpg" alt="6 ta hayvoncha boshchasi" loading="lazy"></div>
-                    <div class="cap">6 ta hayvoncha<small>bir soniyada almashadi</small></div>
+                    <div class="cap" style="font-size: 24px;">2</div>
                 </div>
                 <div class="inc-card reveal">
                     <div class="ph"><img src="images/image5.jpg" alt="Fontan-sepgich" loading="lazy"></div>
-                    <div class="cap">Fontan-sepgich<small>o'zi aylanadi</small></div>
+                    <div class="cap" style="font-size: 24px;">3</div>
                 </div>
                 <div class="inc-card reveal">
                     <div class="ph"><img src="images/image6.jpg" alt="Suvli to'p o'yini" loading="lazy"></div>
-                    <div class="cap">«Suvli to'p» o'yini<small>ilib ol va ur</small></div>
+                    <div class="cap" style="font-size: 24px;">4</div>
                 </div>
             </div>
         </section>
@@ -1154,67 +1129,7 @@
             </div>
         </section>
 
-        <!-- ===== REVIEWS ===== -->
-        <section class="reviews">
-            <div class="sec-head reveal">
-                <span class="kick">Sharhlar</span>
-                <h2>Ota-onalar nima deydi</h2>
-            </div>
-            <div class="ticker-outer">
-                <div class="ticker-track" id="tickerTrack">
-                    <!-- Row 1 -->
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#FFD6E7">👩</span><div><div class="tc-name">Dilnoza, Toshkent</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Bolam buni ko'rib shunday quvondi! Soatlab o'ynaydi, ekrandan yiroqlashdi — bu eng katta yutug'imiz 💧</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#D6E8FF">👨</span><div><div class="tc-name">Aziz, Samarqand</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Sifati zo'r, plastik yumshoq va xavfsiz. Shlangga ulash 1 daqiqa. Bolalarim har kuni hovlida mana shu bilan o'ynashadi 🌿</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#D6FFE8">👩</span><div><div class="tc-name">Malika, Buxoro</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">To'lov olgandan keyin — bu juda qulay! Mahsulot rasmga to'liq mos keldi. Tavsiya qilaman! 🦆</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#FFF3D6">👨</span><div><div class="tc-name">Sherzod, Farg'ona</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Yetkazib berish tez bo'ldi, ikki kunda keldi. Qutisi ham chiroyli, sovg'a qilsam ham yarashadi 🎁</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#FFE8D6">👩</span><div><div class="tc-name">Nargiza, Namangan</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Hayvoncha boshchalar juda qiziqarli — har kuni boshqasini taqishadi. Qizim 6 yoshda, shu o'yinchoqni eng sevib qoldi ☀️</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#E8D6FF">👨</span><div><div class="tc-name">Jasur, Andijon</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Narxi adolatli, sifati yuqori. O'g'lim suvdan qo'rqardi — endi o'zi yuguradi! Katta rahmat Richkidss 👏</p>
-                    </div>
-                    <!-- Duplicate for infinite loop -->
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#FFD6E7">👩</span><div><div class="tc-name">Dilnoza, Toshkent</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Bolam buni ko'rib shunday quvondi! Soatlab o'ynaydi, ekrandan yiroqlashdi — bu eng katta yutug'imiz 💧</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#D6E8FF">👨</span><div><div class="tc-name">Aziz, Samarqand</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Sifati zo'r, plastik yumshoq va xavfsiz. Shlangga ulash 1 daqiqa. Bolalarim har kuni hovlida mana shu bilan o'ynashadi 🌿</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#D6FFE8">👩</span><div><div class="tc-name">Malika, Buxoro</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">To'lov olgandan keyin — bu juda qulay! Mahsulot rasmga to'liq mos keldi. Tavsiya qilaman! 🦆</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#FFF3D6">👨</span><div><div class="tc-name">Sherzod, Farg'ona</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Yetkazib berish tez bo'ldi, ikki kunda keldi. Qutisi ham chiroyli, sovg'a qilsam ham yarashadi 🎁</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#FFE8D6">👩</span><div><div class="tc-name">Nargiza, Namangan</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Hayvoncha boshchalar juda qiziqarli — har kuni boshqasini taqishadi. Qizim 6 yoshda, shu o'yinchoqni eng sevib qoldi ☀️</p>
-                    </div>
-                    <div class="tc">
-                        <div class="tc-top"><span class="tc-av" style="background:#E8D6FF">👨</span><div><div class="tc-name">Jasur, Andijon</div><div class="tc-stars">★★★★★</div></div></div>
-                        <p class="tc-text">Narxi adolatli, sifati yuqori. O'g'lim suvdan qo'rqardi — endi o'zi yuguradi! Katta rahmat Richkidss 👏</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- ===== PRICE ===== -->
         <section class="price">
@@ -1266,6 +1181,27 @@
                         <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67"
                             value="+998 ">
                         <div class="hint">To'g'ri raqam kiriting</div>
+                    </div>
+                    <div class="field" id="f-region">
+                        <label for="region">Hududni tanlang</label>
+                        <select id="region">
+                            <option value="" disabled selected>Viloyat yoki shaharni tanlang</option>
+                            <option value="Andijon viloyati">Andijon viloyati</option>
+                            <option value="Buxoro viloyati">Buxoro viloyati</option>
+                            <option value="Farg'ona viloyati">Farg'ona viloyati</option>
+                            <option value="Jizzax viloyati">Jizzax viloyati</option>
+                            <option value="Xorazm viloyati">Xorazm viloyati</option>
+                            <option value="Namangan viloyati">Namangan viloyati</option>
+                            <option value="Navoiy viloyati">Navoiy viloyati</option>
+                            <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
+                            <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
+                            <option value="Samarqand viloyati">Samarqand viloyati</option>
+                            <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
+                            <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
+                            <option value="Toshkent viloyati">Toshkent viloyati</option>
+                            <option value="Toshkent shahri">Toshkent shahri</option>
+                        </select>
+                        <div class="hint">Iltimos, hududni tanlang</div>
                     </div>
                     <button class="cta pulse" id="submitBtn"><span class="drop">💧</span> Buyurtmani
                         rasmiylashtirish</button>
@@ -1360,15 +1296,17 @@
         var form = document.getElementById('orderForm');
         var btn = document.getElementById('submitBtn');
         var nameEl = document.getElementById('name');
+        var regionEl = document.getElementById('region');
         function digits(s) { return s.replace(/\D/g, ''); }
         btn.addEventListener('click', function () {
             var ok = true;
-            var fn = document.getElementById('f-name'), fp = document.getElementById('f-phone');
+            var fn = document.getElementById('f-name'), fp = document.getElementById('f-phone'), fr = document.getElementById('f-region');
             if (!nameEl.value.trim()) { fn.classList.add('invalid'); nameEl.classList.add('err'); ok = false; } else { fn.classList.remove('invalid'); nameEl.classList.remove('err'); }
             if (digits(phone.value).length < 12) { fp.classList.add('invalid'); phone.classList.add('err'); ok = false; } else { fp.classList.remove('invalid'); phone.classList.remove('err'); }
+            if (!regionEl.value) { fr.classList.add('invalid'); regionEl.classList.add('err'); ok = false; } else { fr.classList.remove('invalid'); regionEl.classList.remove('err'); }
             if (!ok) return;
 
-            var payload = { name: nameEl.value.trim(), phone: '+' + digits(phone.value), product: "Sepuvchi o'rdakcha 5 in 1", price: 245000, source: 'landing' };
+            var payload = { name: nameEl.value.trim(), phone: '+' + digits(phone.value), region: regionEl.value, product: "Sepuvchi o'rdakcha 5 in 1", price: 245000, source: 'landing' };
             btn.disabled = true; btn.style.opacity = .7;
 
             function done() { form.classList.add('sent'); document.getElementById('order').scrollIntoView({ behavior: 'smooth' }); }
