@@ -1258,7 +1258,8 @@
         /* ==== BUYURTMA ENDPOINT ====
            Bu yerga webhook manzilingizni yozing (Zapier / Telegram-bot / amoCRM).
            Bo'sh qoldirilsa — forma faqat "Buyurtma qabul qilindi" deb ko'rsatadi (test uchun). */
-        var ORDER_ENDPOINT = "http://localhost:3000/api/lead";
+        var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+        var ORDER_ENDPOINT = isLocal ? "http://localhost:3000/api/lead" : "/api/lead";
 
         /* ---- video ---- */
         document.querySelectorAll('.videowrap').forEach(function (w) {
