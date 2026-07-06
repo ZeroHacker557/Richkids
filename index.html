@@ -18,6 +18,23 @@
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '3674548846025688');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=3674548846025688&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <style>
         :root {
             --sky: #159BEE;
@@ -1233,11 +1250,15 @@
         </div>
     </div>
 
+    <script src="pixel.js"></script>
     <script>
+        // 1. Sahifa yuklanganda avtomatik PageView yuborish
+        if (window.trackPageView) window.trackPageView();
+
         /* ==== BUYURTMA ENDPOINT ====
            Bu yerga webhook manzilingizni yozing (Zapier / Telegram-bot / amoCRM).
            Bo'sh qoldirilsa — forma faqat "Buyurtma qabul qilindi" deb ko'rsatadi (test uchun). */
-        var ORDER_ENDPOINT = "";
+        var ORDER_ENDPOINT = "http://localhost:3000/api/lead";
 
         /* ---- video ---- */
         document.querySelectorAll('.videowrap').forEach(function (w) {
@@ -1270,6 +1291,7 @@
         document.querySelectorAll('a[href="#order"]').forEach(function (a) {
             a.addEventListener('click', function (ev) {
                 ev.preventDefault();
+                if (window.trackInitiateCheckout) window.trackInitiateCheckout(245000, 'UZS');
                 document.getElementById('order').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 setTimeout(function () { document.getElementById('name').focus({ preventScroll: true }); }, 500);
             });
@@ -1304,10 +1326,21 @@
             if (!regionEl.value) { fr.classList.add('invalid'); regionEl.classList.add('err'); ok = false; } else { fr.classList.remove('invalid'); regionEl.classList.remove('err'); }
             if (!ok) return;
 
-            var payload = { name: nameEl.value.trim(), phone: '+' + digits(phone.value), region: regionEl.value, product: "Sepuvchi o'rdakcha 5 in 1", price: 245000, source: 'landing' };
+            var payload = { 
+                name: nameEl.value.trim(), 
+                phone: '+' + digits(phone.value), 
+                region: regionEl.value, 
+                product: "Sepuvchi o'rdakcha 5 in 1", 
+                price: 245000, 
+                source: 'landing' 
+            };
             btn.disabled = true; btn.style.opacity = .7;
 
-            function done() { form.classList.add('sent'); document.getElementById('order').scrollIntoView({ behavior: 'smooth' }); }
+            function done() { 
+                form.classList.add('sent'); 
+                document.getElementById('order').scrollIntoView({ behavior: 'smooth' }); 
+                if (window.trackPurchase) window.trackPurchase(245000, 'UZS');
+            }
             if (ORDER_ENDPOINT) {
                 fetch(ORDER_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
                     .then(done).catch(function () { btn.disabled = false; btn.style.opacity = 1; alert("Yuborib bo'lmadi. Qaytadan urinib ko'ring yoki bizga yozing."); });
